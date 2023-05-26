@@ -1,0 +1,10 @@
+@startuml
+class OpenAI {
+    + modelName : string = "text-davinci-003"
+    + Execute(input:string) : void
+}
+MonoBehaviour <|-- OpenAI
+OpenAI --> "loadedNpc" NPCDATA
+OpenAI --> "Instance" OpenAI
+OpenAI --> "output" TMP_Text
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+class PlayerMovement {
+    + moveSpeed : float
+    + groundDrag : float
+    + jumpForce : float
+    + jumpCooldown : float
+    + airMultiplier : float
+    + playerHeight : float
+}
+MonoBehaviour <|-- PlayerMovement
+PlayerMovement --> "whatIsGround" LayerMask
+PlayerMovement --> "orientation" Transform
+PlayerMovement o-> "jumpKey" KeyCode
+@enduml

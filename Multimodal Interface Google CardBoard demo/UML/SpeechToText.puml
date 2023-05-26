@@ -1,0 +1,17 @@
+@startuml
+class SpeechToText {
+    + isShowPopupAndroid : bool = false
+    + ready : bool = false
+    + Setting(_language:string) : void
+    + StartRecording(_message:string) : void
+    + StopRecording() : void
+    + onMessage(_message:string) : void
+    + onErrorMessage(_message:string) : void
+    + onResults(_results:string) : void
+}
+class "Action`1"<T> {
+}
+MonoBehaviour <|-- SpeechToText
+SpeechToText --> "Instance" SpeechToText
+SpeechToText --> "onResultCallback<string>" "Action`1"
+@enduml

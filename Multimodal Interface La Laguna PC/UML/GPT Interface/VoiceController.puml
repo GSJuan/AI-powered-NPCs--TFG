@@ -1,0 +1,12 @@
+@startuml
+class VoiceController {
+    + StartSpeaking(message:string) : void
+    + StopSpeaking() : void
+    + StartListening() : void
+    + StopListening() : void
+}
+MonoBehaviour <|-- VoiceController
+VoiceController --> "Instance" VoiceController
+VoiceController --> "input" TMP_Text
+VoiceController --> "recordingIcon" GameObject
+@enduml

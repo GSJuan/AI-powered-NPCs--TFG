@@ -1,0 +1,105 @@
+@startuml
+class NPC {
+    + OnPointerEnter() : void
+    + OnPointerExit() : void
+}
+MonoBehaviour <|-- NPC
+NPC --> "gazedEvent" UnityEvent
+NPC --> "notGazedEvent" UnityEvent
+NPC --> "data" NPCDATA
+class NPCDATA {
+    + PlayerName : string
+    + CharacterName : string
+    + Temperature : float = 0.7f
+    + MaxTokens : int = 64
+    + TopP : float = 1
+    + FrequencyPenalty : float = 0.5f
+    + PresencePenalty : float = 0.1f
+    + Description : string
+    + Examples : string
+}
+ScriptableObject <|-- NPCDATA
+class OpenAI {
+    + modelName : string = "text-davinci-003"
+    + Execute(input:string) : void
+}
+MonoBehaviour <|-- OpenAI
+OpenAI --> "loadedNpc" NPCDATA
+OpenAI --> "Instance" OpenAI
+OpenAI --> "output" TMP_Text
+class RequestData {
+    + model : string
+    + prompt : string
+    + temperature : float
+    + max_tokens : int
+    + top_p : float
+    + frequency_penalty : float
+    + presence_penalty : float
+}
+class OpenAIAPI {
+    + id : string
+    + @object : string
+    + created : int
+    + model : string
+}
+class Choice {
+    + text : string
+    + index : int
+    + logprobs : object
+    + finish_reason : string
+}
+class Usage {
+    + prompt_tokens : int
+    + completion_tokens : int
+    + total_tokens : int
+}
+OpenAIAPI --> "usage" Usage
+class SpeechToText {
+    + isShowPopupAndroid : bool = false
+    + ready : bool = false
+    + Setting(_language:string) : void
+    + StartRecording(_message:string) : void
+    + StopRecording() : void
+    + onMessage(_message:string) : void
+    + onErrorMessage(_message:string) : void
+    + onResults(_results:string) : void
+}
+class "Action`1"<T> {
+}
+MonoBehaviour <|-- SpeechToText
+SpeechToText --> "Instance" SpeechToText
+SpeechToText --> "onResultCallback<string>" "Action`1"
+class TextToSpeech {
+    + pitch : float = 1f
+    + rate : float = 1f
+    + Setting(language:string, _pitch:float, _rate:float) : void
+    + StartSpeak(_message:string) : void
+    + StopSpeak() : void
+    + onSpeechRange(_message:string) : void
+    + onStart(_message:string) : void
+    + onDone(_message:string) : void
+    + onError(_message:string) : void
+    + onMessage(_message:string) : void
+    + <<const>> LANG_AVAILABLE : int = 0
+    + <<const>> LANG_MISSING_DATA : int
+    + <<const>> LANG_NOT_SUPPORTED : int
+    + onSettingResult(_params:string) : void
+}
+class "Action`1"<T> {
+}
+MonoBehaviour <|-- TextToSpeech
+TextToSpeech --> "Instance" TextToSpeech
+TextToSpeech --> "onStartCallBack" Action
+TextToSpeech --> "onDoneCallback" Action
+TextToSpeech --> "onSpeakRangeCallback<string>" "Action`1"
+class VoiceController {
+    + StartSpeaking(message:string) : void
+    + StopSpeaking() : void
+    + StartListening() : void
+    + StopListening() : void
+}
+MonoBehaviour <|-- VoiceController
+VoiceController --> "Instance" VoiceController
+VoiceController --> "input" TMP_Text
+VoiceController --> "recordingIcon" GameObject
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+class Neural_Net {
+    + <<const>> VOCAB_SIZE : int = 50257
+    + tokenizerModelPath : string = "D:/Code/TFG/Models/tokenizers/gpt2"
+    + gpt2ModelPath : string = "D:/Code/TFG/Models/onnx/gpt2-lm-head-bs-12-opt.onnx"
+    + NeuralNet()
+    + LoadTokenizer() : void
+    + LoadModel() : void
+    + GetInference(input:string) : string
+    + Tokenize(input_str:string) : int[]
+    + GetOutput(input_ids:int[]) : IDisposableReadOnlyCollection<DisposableNamedOnnxValue>
+    + Prediction2Word(model_outputs:IDisposableReadOnlyCollection<DisposableNamedOnnxValue>) : string
+    + Cleanup() : void
+}
+@enduml

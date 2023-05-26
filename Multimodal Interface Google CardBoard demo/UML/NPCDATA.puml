@@ -1,0 +1,14 @@
+@startuml
+class NPCDATA {
+    + PlayerName : string
+    + CharacterName : string
+    + Temperature : float = 0.7f
+    + MaxTokens : int = 64
+    + TopP : float = 1
+    + FrequencyPenalty : float = 0.5f
+    + PresencePenalty : float = 0.1f
+    + Description : string
+    + Examples : string
+}
+ScriptableObject <|-- NPCDATA
+@enduml

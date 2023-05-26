@@ -1,0 +1,10 @@
+@startuml
+class NPC {
+    + OnPointerEnter() : void
+    + OnPointerExit() : void
+}
+MonoBehaviour <|-- NPC
+NPC --> "data" NPCDATA
+NPC --> "gazedEvent" UnityEvent
+NPC --> "notGazedEvent" UnityEvent
+@enduml

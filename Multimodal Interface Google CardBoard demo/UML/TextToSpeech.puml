@@ -1,0 +1,25 @@
+@startuml
+class TextToSpeech {
+    + pitch : float = 1f
+    + rate : float = 1f
+    + Setting(language:string, _pitch:float, _rate:float) : void
+    + StartSpeak(_message:string) : void
+    + StopSpeak() : void
+    + onSpeechRange(_message:string) : void
+    + onStart(_message:string) : void
+    + onDone(_message:string) : void
+    + onError(_message:string) : void
+    + onMessage(_message:string) : void
+    + <<const>> LANG_AVAILABLE : int = 0
+    + <<const>> LANG_MISSING_DATA : int
+    + <<const>> LANG_NOT_SUPPORTED : int
+    + onSettingResult(_params:string) : void
+}
+class "Action`1"<T> {
+}
+MonoBehaviour <|-- TextToSpeech
+TextToSpeech --> "Instance" TextToSpeech
+TextToSpeech --> "onStartCallBack" Action
+TextToSpeech --> "onDoneCallback" Action
+TextToSpeech --> "onSpeakRangeCallback<string>" "Action`1"
+@enduml

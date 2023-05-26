@@ -1,0 +1,29 @@
+@startuml
+class RequestData {
+    + model : string
+    + prompt : string
+    + temperature : float
+    + max_tokens : int
+    + top_p : float
+    + frequency_penalty : float
+    + presence_penalty : float
+}
+class OpenAIAPI {
+    + id : string
+    + @object : string
+    + created : int
+    + model : string
+}
+class Choice {
+    + text : string
+    + index : int
+    + logprobs : object
+    + finish_reason : string
+}
+class Usage {
+    + prompt_tokens : int
+    + completion_tokens : int
+    + total_tokens : int
+}
+OpenAIAPI --> "usage" Usage
+@enduml

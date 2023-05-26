@@ -1,0 +1,63 @@
+@startuml
+class CompletionRequestData {
+    + model : string
+    + prompt : string
+    + temperature : float
+    + max_tokens : int
+    + top_p : float
+    + frequency_penalty : float
+    + presence_penalty : float
+}
+class CompletionResponse {
+    + id : string
+    + @object : string
+    + created : int
+    + model : string
+}
+class ChatRequestData {
+    + model : string
+    + temperature : float
+    + max_tokens : int
+    + top_p : float
+    + frequency_penalty : float
+    + presence_penalty : float
+}
+class ChatResponse {
+    + id : string
+    + @object : string
+    + created : int
+    + model : string
+}
+class ChatChoice {
+    + text : string
+    + index : int
+    + logprobs : object
+    + finish_reason : string
+}
+class Choice {
+    + text : string
+    + index : int
+    + logprobs : object
+    + finish_reason : string
+}
+class Usage {
+    + prompt_tokens : int
+    + completion_tokens : int
+    + total_tokens : int
+}
+class NamelessMessage {
+    + role : string
+    + content : string
+    + NamelessMessage(role_:string, content_:string)
+    + GetRole() : string
+    + SetRole(role:string) : void
+}
+class Message {
+    + name : string
+    + Message(role:string, content:string, name:string)
+}
+CompletionResponse --> "usage" Usage
+ChatResponse --> "usage" Usage
+ChatChoice --> "message" NamelessMessage
+NamelessMessage <|-- Message
+@enduml

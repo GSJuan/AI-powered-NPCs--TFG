@@ -1,0 +1,19 @@
+@startuml
+class NPCDATA {
+    + PlayerName : string
+    + CharacterName : string
+    + Temperature : float = 0.7f
+    + MaxTokens : int = 128
+    + TopP : float = 1
+    + FrequencyPenalty : float = 0.5f
+    + PresencePenalty : float = 0.1f
+    + Description : string
+    + Examples : string
+    + OnEnable() : void
+    + OnDestroy() : void
+}
+class "List"<T> {
+}
+ScriptableObject <|-- NPCDATA
+NPCDATA o-> "history<NamelessMessage>" "List"
+@enduml

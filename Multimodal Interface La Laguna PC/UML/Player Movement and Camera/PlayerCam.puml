@@ -1,0 +1,8 @@
+@startuml
+class PlayerCam {
+    + sensX : float = 100
+    + sensY : float = 100
+}
+MonoBehaviour <|-- PlayerCam
+PlayerCam --> "orientation" Transform
+@enduml

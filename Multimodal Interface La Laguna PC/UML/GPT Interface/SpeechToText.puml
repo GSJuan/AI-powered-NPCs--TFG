@@ -1,0 +1,18 @@
+@startuml
+class SpeechToText {
+    + streamSegments : bool = true
+    + SetLanguage(language:string) : void
+    + StartRecording(_message:string) : void
+    + StopRecording() : void
+}
+
+MonoBehaviour <|-- SpeechToText
+SpeechToText --> "onResultCallback<string>" "Action"
+SpeechToText --> "onPartialResultsCallback<string>" "Action"
+SpeechToText --> "whisper" WhisperManager
+SpeechToText --> "microphoneRecord" MicrophoneRecord
+SpeechToText --> "timeText" Text
+SpeechToText --> "languageDropdown" Dropdown
+SpeechToText --> "translateToggle" Toggle
+SpeechToText --> "Instance" SpeechToText
+@enduml

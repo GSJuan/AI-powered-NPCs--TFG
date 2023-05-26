@@ -1,0 +1,10 @@
+@startuml
+class OpenAI {
+    + modelName : string = "gpt-3.5-turbo"
+    + Execute(input:string) : void
+}
+MonoBehaviour <|-- OpenAI
+OpenAI --> "loadedNpc" NPCDATA
+OpenAI --> "Instance" OpenAI
+OpenAI --> "output_text" TMP_Text
+@enduml

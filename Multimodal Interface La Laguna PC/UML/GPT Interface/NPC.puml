@@ -1,0 +1,10 @@
+@startuml
+class NPC {
+    + OnTriggerEnter(other:Collider) : void
+    + OnTriggerExit(other:Collider) : void
+}
+MonoBehaviour <|-- NPC
+NPC --> "talkEvent" UnityEvent
+NPC --> "notTalkEvent" UnityEvent
+NPC --> "data" NPCDATA
+@enduml

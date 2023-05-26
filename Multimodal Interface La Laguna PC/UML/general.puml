@@ -1,0 +1,106 @@
+@startuml
+class NPC {
+    + OnTriggerEnter(other:Collider) : void
+    + OnTriggerExit(other:Collider) : void
+}
+MonoBehaviour <|-- NPC
+NPC --> "talkEvent" UnityEvent
+NPC --> "notTalkEvent" UnityEvent
+NPC --> "data" NPCDATA
+class OpenAI {
+    + modelName : string = "gpt-3.5-turbo"
+    + Execute(input:string) : void
+}
+MonoBehaviour <|-- OpenAI
+OpenAI --> "loadedNpc" NPCDATA
+OpenAI --> "Instance" OpenAI
+OpenAI --> "output" TMP_Text
+class ChatRequestData {
+    + model : string
+    + temperature : float
+    + max_tokens : int
+    + top_p : float
+    + frequency_penalty : float
+    + presence_penalty : float
+}
+class ChatResponse {
+    + id : string
+    + @object : string
+    + created : int
+    + model : string
+}
+class ChatChoice {
+    + text : string
+    + index : int
+    + logprobs : object
+    + finish_reason : string
+}
+class Choice {
+    + text : string
+    + index : int
+    + logprobs : object
+    + finish_reason : string
+}
+class Usage {
+    + prompt_tokens : int
+    + completion_tokens : int
+    + total_tokens : int
+}
+class NamelessMessage {
+    + role : string
+    + content : string
+    + NamelessMessage(role_:string, content_:string)
+    + GetRole() : string
+    + SetRole(role:string) : void
+}
+class Message {
+    + name : string
+    + Message(role:string, content:string, name:string)
+}
+ChatResponse --> "usage" Usage
+ChatChoice --> "message" NamelessMessage
+NamelessMessage <|-- Message
+class SpeechToText {
+    + streamSegments : bool = true
+    + SetLanguage(language:string) : void
+    + StartRecording(_message:string) : void
+    + StopRecording() : void
+}
+class "Action"<T> {
+}
+MonoBehaviour <|-- SpeechToText
+SpeechToText --> "onResultCallback<string>" "Action"
+SpeechToText --> "whisper" WhisperManager
+SpeechToText --> "microphoneRecord" MicrophoneRecord
+SpeechToText --> "timeText" Text
+SpeechToText --> "languageDropdown" Dropdown
+SpeechToText --> "translateToggle" Toggle
+SpeechToText --> "Instance" SpeechToText
+class VoiceController {
+    + StartSpeaking(message:string) : void
+    + StopSpeaking() : void
+    + StartListening() : void
+    + StopListening() : void
+}
+MonoBehaviour <|-- VoiceController
+VoiceController --> "Instance" VoiceController
+
+VoiceController --> "recordingIcon" GameObject
+class NPCDATA {
+    + PlayerName : string
+    + CharacterName : string
+    + Temperature : float = 0.7f
+    + MaxTokens : int = 128
+    + TopP : float = 1
+    + FrequencyPenalty : float = 0.5f
+    + PresencePenalty : float = 0.1f
+    + Description : string
+    + Examples : string
+    + OnEnable() : void
+    + OnDestroy() : void
+}
+class "List`1"<T> {
+}
+ScriptableObject <|-- NPCDATA
+NPCDATA o-> "history<NamelessMessage>" "List`1"
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class MoveCamera {
+}
+MonoBehaviour <|-- MoveCamera
+MoveCamera --> "cameraPosition" Transform
+@enduml
